@@ -1,0 +1,201 @@
+{
+  "linkedin_topics": [
+    {
+      "id": 1,
+      "topic": "What Actually Happens Behind a ChatGPT-Like Application?",
+      "description": "Break down a simple AI application: user → frontend → backend/API → prompt construction → model → response → application logic. Explain the architecture from an engineer's perspective.",
+      "used": true
+    },
+    {
+      "id": 2,
+      "topic": "n8n Changed How I Think About Automation",
+      "description": "Explain how visual workflow automation connects triggers, APIs, databases, AI models, and third-party services. Focus on the shift from manually writing integrations to orchestrating workflows.",
+      "used": true
+    },
+    {
+      "id": 3,
+      "topic": "Building an AI Application with n8n + Google AI Studio",
+      "description": "Explain how an AI frontend and workflow automation backend can work together. Highlight API integrations, branching, multi-step workflows, and automation."
+    },
+    {
+      "id": 4,
+      "topic": "Cloud APIs vs Local AI Models",
+      "description": "Compare hosted AI models accessed through APIs with open-source models running locally. Discuss cost, latency, privacy, hardware requirements, performance, and scalability."
+    },
+    {
+      "id": 5,
+      "topic": "Building a ChatGPT-Like App with Open-Source Models",
+      "description": "Explore Hugging Face, Gradio, and local models. Explain how engineers can build interactive AI applications without building every component from scratch."
+    },
+    {
+      "id": 6,
+      "topic": "RAG: Why LLMs Need Access to Your Data",
+      "description": "Explain the problem Retrieval-Augmented Generation solves. Introduce the pipeline of data ingestion → chunking → embeddings → vector database → retrieval → LLM response."
+    },
+    {
+      "id": 7,
+      "topic": "RAG Is Easy to Demo, Hard to Build Well",
+      "description": "Explain why connecting an LLM to a vector database is not enough for a reliable RAG system. Cover chunking, embeddings, retrieval quality, ranking, context size, latency, accuracy, and hallucinations."
+    },
+    {
+      "id": 8,
+      "topic": "Debugging AI Applications with AI",
+      "description": "Explore how AI can be used as a debugging assistant to understand stack traces, logs, failed retrievals, bad chunks, embedding issues, and API errors instead of using AI only for code generation.",
+      "used": true
+    },
+    {
+      "id": 9,
+      "topic": "AI Coding Agents Are More Than Code Generators",
+      "description": "Discuss Codex and Claude Code-style agents, tool usage, code understanding, security reviews, automation, and engineering workflows. Explore the shift from AI writing code to AI performing engineering tasks."
+    },
+    {
+      "id": 10,
+      "topic": "MCP: Giving AI Agents Access to the Real World",
+      "description": "Explain MCP conceptually and how tools allow AI agents to interact with external systems and capabilities. Discuss reusable tools, orchestration, integrations, and agentic workflows."
+    },
+    {
+      "id": 11,
+      "topic": "LangChain: Moving from LLM Calls to AI Applications",
+      "description": "Explore how LangChain helps structure AI applications using prompts, chains, memory, agents, and reusable components. Focus on moving from simple model calls toward multi-step AI workflows."
+    },
+    {
+      "id": 12,
+      "topic": "LangSmith: You Can't Improve What You Can't Observe",
+      "description": "Explain the importance of observability in AI applications. Cover tracing, debugging, monitoring, and analyzing LLM workflows to understand what happened inside an AI system and improve its performance."
+    },
+    {
+      "id": 13,
+      "topic": "LangGraph: Building Stateful AI Agents",
+      "description": "Explain how graph-based workflows enable stateful, multi-step AI systems. Discuss nodes, state, branching, loops, memory, and how LangGraph can be used to orchestrate complex and multi-agent workflows.",
+      "used": true
+    },
+    {
+      "id": 14,
+      "topic": "The Hidden Cost of AI: Tokens, Context Windows and Model Selection",
+      "description": "Explore how AI applications are priced and why model selection matters. Discuss tokens, context windows, different modalities, caching, batching, prompt optimization, and balancing quality, latency, performance, and cost."
+    },
+    {
+      "id": 15,
+      "topic": "Building an AI Engineering Agent",
+      "description": "Explore how to build an AI agent capable of understanding engineering tasks, modifying code, executing workflows, and creating pull requests. Discuss combining LangChain, LangGraph, LangSmith, and Codex.",
+      "used": true
+    },
+    {
+      "id": 16,
+      "topic": "What Happens When an AI Agent Can Actually Change Your Code?",
+      "description": "Explore the evolution from AI-assisted coding to autonomous software engineering. Discuss coding agents that can understand projects, make changes, execute tasks, work with tools, and raise pull requests through interfaces such as Discord."
+    },
+    {
+      "id": 17,
+      "topic": "From Learning AI Engineering to Building Something Real",
+      "description": "Use the hackathon as the culmination of the learning journey. Talk about applying agents, RAG, automation, observability, coding agents, deployment, security, scalability, and cost optimization to build and ship an original AI-powered solution."
+    },
+    {
+      "id": 18,
+      "topic": "From Prototype to Production: MLOps Challenges for Enterprise RAG Systems",
+      "description": "This post delves into the often-overlooked MLOps considerations when scaling RAG applications from a proof-of-concept to a robust, production-grade system. We'll discuss challenges like data ingestion pipeline reliability, vector database management strategies (indexing, refreshing, versioning), A/B testing different retrieval mechanisms, monitoring retrieval quality and generation coherence in real-time, and implementing robust rollback mechanisms. It's about ensuring data freshness, minimizing latency, and maintaining performance at scale, which is crucial for enterprise adoption."
+    },
+    {
+      "id": 19,
+      "topic": "Beyond Single Agents: Architecting Resilient Multi-Agent Systems",
+      "description": "Building upon the concept of individual AI agents, this topic explores the complexities of designing and orchestrating systems composed of multiple, interacting agents. We'll examine patterns for inter-agent communication, state management across distributed agents, conflict resolution strategies, and ensuring graceful degradation in multi-agent workflows. The focus will be on the engineering principles required to build reliable, observable, and debuggable systems where emergent behavior is both powerful and controllable, moving beyond simple task delegation to true collaborative intelligence."
+    },
+    {
+      "id": 20,
+      "topic": "Hardening Your LLM Applications: Advanced Security & Robustness Engineering",
+      "description": "With LLM applications moving into critical business processes, safeguarding them against vulnerabilities is paramount. This post goes beyond basic prompt engineering to discuss advanced techniques for mitigating prompt injection attacks, data exfiltration risks in RAG, adversarial attacks on fine-tuned models, and ensuring ethical guardrails against bias and hallucination at scale. We'll cover topics like input/output validation, red teaming, content moderation APIs, embedding-based security filters, and continuous monitoring for drifts in safety and fairness metrics, crucial for building trust in AI systems."
+    },
+    {
+      "id": 21,
+      "topic": "Structured Outputs in Production: Moving Beyond Unpredictable LLM Responses",
+      "description": "Explores how to enforce strict JSON schemas and deterministic data structures from non-deterministic LLMs. Covers practical implementation techniques using Pydantic, Instructor, and native tool-calling APIs, while addressing real-world edge cases like handling schema drift, parsing errors, and implementing graceful fallback strategies in enterprise backends."
+    },
+    {
+      "id": 22,
+      "topic": "Advanced Retrieval Engineering: Why Basic Vector Search Fails in Enterprise RAG",
+      "description": "Dives deep into the limitations of simple cosine similarity over naive chunks. Explains advanced retrieval techniques including Hybrid Search (combining BM25 sparse vectors with dense embeddings), Cross-Encoder Re-ranking, Semantic Chunking, and Context Compression to significantly increase retrieval precision and reduce context window noise."
+    },
+    {
+      "id": 23,
+      "topic": "Automated LLM Evaluation: Moving Beyond 'Vibe Checks' with CI/CD Evals",
+      "description": "Demonstrates how to build robust, automated evaluation pipelines for LLM applications. Discusses defining task-specific metrics, leveraging LLM-as-a-Judge paradigms responsibly, generating synthetic evaluation datasets, and integrating eval frameworks directly into existing GitHub Actions or CI/CD pipelines to catch regressions before deployment."
+    },
+    {
+      "id": 24,
+      "topic": "Semantic Caching in Production: Cutting LLM Latency and API Costs at Scale",
+      "description": "Explore how to implement semantic caching using vector databases to intercept intent-similar prompts before hitting downstream LLM endpoints. Cover vector distance thresholding, handling dynamic user contexts, and cache invalidation strategies in production systems.",
+      "used": true
+    },
+    {
+      "id": 25,
+      "topic": "Hybrid Search and Re-Ranking: Combining BM25 and Dense Embeddings for Precision RAG",
+      "description": "Analyze why pure vector embeddings struggle with exact keyword matches, code symbols, and domain-specific IDs. Detail the architecture of combining sparse lexical search (BM25) with dense vector retrieval, followed by cross-encoder re-ranking for optimal context window density."
+    },
+    {
+      "id": 26,
+      "topic": "Context Window Management: Context Truncation, Summarization, and Memory Architecture for Stateful Agents",
+      "description": "Examine technical strategies for managing state in long-running AI agent loops. Cover semantic compaction, sliding context windows, and splitting short-term working memory from long-term database storage to prevent context rot and manage token expenditure."
+    },
+    {
+      "id": 27,
+      "topic": "High-Throughput LLM Serving: PagedAttention, Continuous Batching, and vLLM in Production",
+      "description": "Explore how self-hosting open-weight models requires optimizing GPU memory allocation beyond naive batching. Discuss how PagedAttention mitigates memory fragmentation in Key-Value (KV) caches, how continuous batching maximizes hardware utilization, and how to evaluate latency vs. throughput trade-offs when migrating from cloud APIs to custom vLLM or TensorRT-LLM inference engines."
+    },
+    {
+      "id": 28,
+      "topic": "Beyond Vector Databases: Knowledge Graphs and GraphRAG for Complex Enterprise Reasoning",
+      "description": "Examine the blind spots of vector similarity search when dealing with multi-hop relationships and global dataset structures. Detail how integrating Knowledge Graphs with vector retrieval (GraphRAG) allows models to perform complex relational reasoning across distributed entities while drastically improving factual consistency in enterprise-grade retrieval pipelines."
+    },
+    {
+      "id": 29,
+      "topic": "When Prompting Fails: Parameter-Efficient Fine-Tuning (PEFT) and QLoRA for Domain Adaptation",
+      "description": "Analyze the decision boundaries between RAG, context injection, and model fine-tuning. Dive into the mechanics of Parameter-Efficient Fine-Tuning (PEFT) and Quantized Low-Rank Adaptation (QLoRA), explaining how adapter layers enable precise output formatting, domain-specific terminology adoption, and reduced latency without requiring massive compute budgets or causing catastrophic forgetting."
+    },
+    {
+      "id": 30,
+      "topic": "Resilient Tool Calling: Handling Failures, Schema Violations, and Retries in Agentic Workflows",
+      "description": "Examines what happens when an LLM outputs malformed tool arguments or encounters execution timeouts. Covers practical patterns for backpressure, automated JSON schema repair, fallback functions, and building deterministic error-recovery loops in AI agent runtimes."
+    },
+    {
+      "id": 31,
+      "topic": "Inference-Time Guardrails: Implementing Deterministic Safety Filters Without Latency Penalties",
+      "description": "Explores architectural patterns for securing user prompts and model outputs using dual-pass validation, lightweight classifier models like Llama Guard, and asynchronous guardrail execution to protect production applications from prompt injection and data leaks."
+    },
+    {
+      "id": 32,
+      "topic": "Streaming UI/UX Architecture: SSE, Partial JSON Parsing, and Interrupted Generation in AI Apps",
+      "description": "Dives into the engineering challenges of real-time LLM interaction, including Server-Sent Events (SSE), parsing incomplete structured streaming responses on the client, state synchronization, and handling connection drops mid-token stream.",
+      "used": true
+    },
+    {
+      "id": 33,
+      "topic": "Indirect Prompt Injection in Agentic Workflows: Securing LLMs Against Untrusted Tool Data",
+      "description": "Explores the critical security vulnerability where AI agents process compromised data from third-party APIs, web scrapers, or incoming emails. Covers practical mitigation strategies including dual-LLM execution architectures, strict privilege separation between decision-makers and execution sandboxes, and defensive output parsing."
+    },
+    {
+      "id": 34,
+      "topic": "Hierarchical Agent Memory Architecture: Designing Persistent Long-Term Storage Beyond Context Windows",
+      "description": "Dives into building stateful AI agents that maintain user context across long-running sessions without context overflow. Explains how to implement decoupled storage tiers—combining short-term working memory, episodic vector storage, and asynchronously consolidated semantic memory banks."
+    },
+    {
+      "id": 35,
+      "topic": "Speculative Decoding in Production: Reducing LLM Latency Without Quality Loss",
+      "description": "Breaks down how to accelerate token generation speeds in self-hosted deployments by using lightweight draft models alongside large target models. Details the underlying mechanics of parallel token validation, KV-cache optimization, and selecting compatible target-draft model pairs for optimal throughput."
+    },
+    {
+      "id": 36,
+      "topic": "Dynamic Model Routing: Building Cost-Effective LLM Cascades in Production",
+      "description": "Explain how to architect an intelligent routing layer using semantic classifiers and embedding distance to direct straightforward queries to fast, lightweight SLMs (e.g., Llama-3-8B) while reserving frontier models for complex multi-step reasoning tasks. Cover practical design patterns for cascading fallbacks, setting latency budgets, and drastically reducing inference overhead without sacrificing output quality."
+    },
+    {
+      "id": 37,
+      "topic": "Distributed Tracing for Agentic Workflows: Implementing OpenTelemetry Across Asynchronous LLM Graphs",
+      "description": "Deep dive into setting up end-to-end observability for stateful, multi-agent architectures using OpenTelemetry and OpenInference standards. Detail how to track asynchronous tool executions, trace context propagation across parent-child graph nodes, and export token usage, prompt latency, and agent step failures directly to enterprise APM systems."
+    },
+    {
+      "id": 38,
+      "topic": "Document-Aware Chunking Strategies: Moving Beyond Naive Character and Token Splitters in RAG",
+      "description": "Explore advanced document pre-processing for enterprise RAG systems, focusing on layout-aware PDF parsing, AST-based code splitters, and semantic boundary detection. Explain how preserving structural hierarchy and metadata context during ingestion prevents snippet fragmentation and significantly boosts retrieval precision in vector databases."
+    }
+  ]
+}

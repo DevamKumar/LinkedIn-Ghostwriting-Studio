@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@theme {
+  --color-forest: #1A3C2B;
+  --color-paper: #F7F7F5;
+  --color-grid: #3A3A38;
+  --color-coral: #FF8C69;
+  --color-mint: #9EFFBF;
+  --color-gold: #F4D35E;
+
+  --font-sans: "General Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+
+  /* Restrict all radii to max 2px */
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
+  --radius-2xl: 2px;
+  --radius-3xl: 2px;
+}
+
+@layer base {
+  *, ::before, ::after {
+    border-color: color-mix(in srgb, var(--color-grid) 20%, transparent);
+    box-shadow: none !important;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-forest);
+  }
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+}
+
+@utility text-8xl {
+  font-size: clamp(4rem, 8vw, 6rem);
+  line-height: 0.9;
+}

@@ -1,0 +1,8 @@
+{
+    "name": "LinkedIn Ghostwriting Studio",
+    "description": "High-converting LinkedIn Content \u0026 Ghostwriting Studio for Solopreneurs powered by n8n automation pipelines.",
+    "requestFramePermissions": [],
+    "majorCapabilities": [
+        "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+    ]
+}
