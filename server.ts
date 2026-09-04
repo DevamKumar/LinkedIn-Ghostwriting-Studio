@@ -513,7 +513,7 @@ app.get('/api/archive', (req, res) => {
 });
 
 async function getOrInitDailySchedules() {
-  const todayString = new Date().toISOString().split('T')[0];
+  const todayString = new Date().toLocaleDateString('en-CA');
   let schedules: any[] = [];
 
   if (fs.existsSync(SCHEDULE_FILE)) {
@@ -570,7 +570,7 @@ app.get('/api/schedules', async (req, res) => {
 
 function startSchedulerLoop() {
   setInterval(async () => {
-    const todayString = new Date().toISOString().split('T')[0];
+    const todayString = new Date().toLocaleDateString('en-CA');
     const schedules = await getOrInitDailySchedules();
     let updated = false;
 
