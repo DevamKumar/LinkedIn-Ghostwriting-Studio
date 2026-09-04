@@ -195,7 +195,7 @@ export default function App() {
           <div className="absolute bottom-0 right-0 w-2.5 h-2.5 border-b border-r border-forest"></div>
           
           <h2 className="font-display text-2xl tracking-tight text-forest uppercase mb-2">Content Pipeline Expansion</h2>
-          <p className="font-sans text-forest/70 text-sm mb-6 max-w-md">Automatically generate 3 highly-credible AI engineering topics based on your existing data to ensure a continuous content stream.</p>
+          <p className="font-sans text-forest/70 text-sm mb-6 max-w-md">Automatically generate 5 highly-credible AI engineering topics based on your existing data to ensure a continuous content stream.</p>
           
           <button
             onClick={handleGenerateTopics}
@@ -212,7 +212,7 @@ export default function App() {
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter">
                   <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
                 </svg>
-                Generate 3 New Topics
+                Generate 5 New Topics
               </>
             )}
           </button>

@@ -195,9 +195,9 @@ You are an expert AI engineer and content creator.
 Here are the titles of existing LinkedIn topics we have covered:
 ${JSON.stringify(existingTitles, null, 2)}
 
-Please generate 3 NEW and unique LinkedIn post topics that logically follow, complement, or expand upon these existing themes.
+Please generate 5 NEW and unique LinkedIn post topics that logically follow, complement, or expand upon these existing themes.
 The topics should be highly engaging, educational, and targeted towards software engineers learning AI and AI Engineering.
-Crucially, these 3 topics must establish high credibility. Use specific technical terminology appropriately, draw on real-world engineering challenges, and avoid superficial buzzwords.
+Crucially, these 5 topics must establish high credibility. Use specific technical terminology appropriately, draw on real-world engineering challenges, and avoid superficial buzzwords.
 
 You must return ONLY valid JSON representing an array of objects. 
 Each object must have exactly two string fields:
@@ -536,9 +536,9 @@ async function getOrInitDailySchedules() {
     available = (data.linkedin_topics || []).filter((t: any) => !t.used);
   }
 
-  if (available.length >= 3) {
+  if (available.length >= 5) {
     const shuffled = available.sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, 3);
+    const selected = shuffled.slice(0, 5);
     const now = new Date();
     const endOfDay = new Date();
     endOfDay.setHours(23, 59, 59, 999);
@@ -555,7 +555,7 @@ async function getOrInitDailySchedules() {
     });
     
     fs.writeFileSync(SCHEDULE_FILE, JSON.stringify({ date: todayString, schedules }, null, 2));
-    console.log(`[Scheduler] 3 posts scheduled for today.`);
+    console.log(`[Scheduler] 5 posts scheduled for today.`);
   } else {
     console.log(`[Scheduler] Not enough unused topics available!`);
   }
