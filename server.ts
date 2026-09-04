@@ -83,6 +83,41 @@ Drop a comment below and let's dissect it.
   };
 }
 
+function handleGenerateFallback(topic: string, startTime: number, res: any) {
+  const fallbackData = generateFallbackArticle({ topic, category: 'Learning Arc', writingStyle: 'Reflective', mentions: [] });
+  const words = fallbackData.content.trim().split(/\s+/).filter(Boolean).length;
+  
+  const generatedArticle = {
+    id: `art_${Date.now()}`,
+    ...fallbackData,
+    topic,
+    createdAt: new Date().toISOString(),
+    meta: {
+      wordCount: words,
+      charCount: fallbackData.content.length,
+      readTimeMinutes: Math.max(1, Math.ceil(words / 200)),
+      provider: fallbackData.provider,
+      executionTimeMs: Date.now() - startTime,
+    },
+    rawPayload: {},
+    rawResponse: {}
+  };
+
+  try {
+    const archivePath = path.join(process.cwd(), 'archive.json');
+    let archiveData = { history: [] as any[] };
+    if (fs.existsSync(archivePath)) {
+      archiveData = JSON.parse(fs.readFileSync(archivePath, 'utf-8'));
+    }
+    archiveData.history.unshift(generatedArticle);
+    fs.writeFileSync(archivePath, JSON.stringify(archiveData, null, 2));
+  } catch (e) {
+    console.error('Failed to save to archive', e);
+  }
+  
+  return res.json(generatedArticle);
+}
+
 // Ping test for n8n webhook
 app.post('/api/n8n/ping', async (req, res) => {
   const { webhookUrl, headers } = req.body;
@@ -384,14 +419,17 @@ app.post('/api/n8n/generate', async (req, res) => {
 
         return res.json(generatedArticle);
       } else {
-        return res.status(n8nResponse.status).json({ error: 'n8n webhook returned an error status' });
+        console.warn(`n8n webhook returned status ${n8nResponse.status}. Using fallback.`);
+        return handleGenerateFallback(topic, startTime, res);
       }
     } catch (err: any) {
-      return res.status(502).json({ error: 'Failed to generate content via n8n webhook', details: err.message });
+      console.error(`n8n webhook failed: ${err.message}. Using fallback.`);
+      return handleGenerateFallback(topic, startTime, res);
     }
   }
 
-  return res.status(400).json({ error: 'No custom webhook URL provided and default is unavailable.' });
+  console.warn(`No valid webhook URL. Using fallback.`);
+  return handleGenerateFallback(topic, startTime, res);
 
 
 });

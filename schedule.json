@@ -6,7 +6,8 @@
       "topic": "Inference-Time Guardrails: Implementing Deterministic Safety Filters Without Latency Penalties",
       "description": "Explores architectural patterns for securing user prompts and model outputs using dual-pass validation, lightweight classifier models like Llama Guard, and asynchronous guardrail execution to protect production applications from prompt injection and data leaks.",
       "scheduledTime": 1788530723202,
-      "processed": false
+      "processed": true,
+      "processing": true
     },
     {
       "id": 11,

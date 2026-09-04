@@ -1,5 +1,4 @@
 import React from 'react';
-import { ContentCategory, WritingStyle } from '../../types';
 
 interface TechnicalFormProps {
   topic: string;

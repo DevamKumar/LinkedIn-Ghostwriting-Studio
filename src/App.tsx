@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {
-  ContentCategory,
-  WritingStyle,
   GeneratedArticle,
   N8nSettings,
 } from './types';
-import { INITIAL_ARTICLE, INITIAL_HISTORY } from './lib/sampleData';
+import { INITIAL_ARTICLE } from './lib/sampleData';
 import { MosaicBackground } from './components/ui/MosaicBackground';
-import { TechnicalNav } from './components/layout/TechnicalNav';
 import { HeroSection } from './components/sections/HeroSection';
 import { TechnicalForm } from './components/sections/TechnicalForm';
 import { BentoGrid } from './components/sections/BentoGrid';
@@ -164,8 +161,8 @@ export default function App() {
         ],
         hashtags: ['#Solopreneur', '#BuildingInPublic', '#Growth'],
         mentions: [],
-        category: 'Learning Arc' as any as ContentCategory,
-        writingStyle: 'Reflective' as any as WritingStyle,
+        category: 'Learning Arc',
+        writingStyle: 'Reflective',
         createdAt: new Date().toISOString(),
         meta: {
           wordCount: 78,
@@ -186,7 +183,6 @@ export default function App() {
   return (
     <div className="min-h-screen selection:bg-mint/30 selection:text-forest">
       <MosaicBackground />
-      <TechnicalNav />
       
       <main className="relative pt-16">
         <HeroSection />
