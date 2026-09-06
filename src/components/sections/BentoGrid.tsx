@@ -46,14 +46,14 @@ export const BentoGrid: React.FC<BentoGridProps> = ({ currentArticle, history, o
 
 
         {/* Cell 3: History Archive */}
-        <div className="bg-paper p-8 min-h-[400px]">
-          <div className="pl-3 border-l-2 border-coral mb-6">
+        <div className="bg-paper p-8 min-h-[400px] h-full flex flex-col">
+          <div className="pl-3 border-l-2 border-coral mb-6 flex-shrink-0">
             <h3 className="font-mono text-[12px] uppercase tracking-widest text-forest">
               Archive.log
             </h3>
           </div>
           
-          <div className="space-y-4 max-h-[300px] overflow-y-auto pr-2">
+          <div className="space-y-4 flex-1 overflow-y-auto pr-2">
             {history.length > 0 ? history.map((item) => (
               <div 
                 key={item.id} 
