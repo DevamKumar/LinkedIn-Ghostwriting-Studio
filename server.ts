@@ -195,9 +195,9 @@ You are an expert AI engineer and content creator.
 Here are the titles of existing LinkedIn topics we have covered:
 ${JSON.stringify(existingTitles, null, 2)}
 
-Please generate 5 NEW and unique LinkedIn post topics that logically follow, complement, or expand upon these existing themes.
+Please generate 2 NEW and unique LinkedIn post topics that logically follow, complement, or expand upon these existing themes.
 The topics should be highly engaging, educational, and targeted towards software engineers learning AI and AI Engineering.
-Crucially, these 5 topics must establish high credibility. Use specific technical terminology appropriately, draw on real-world engineering challenges, and avoid superficial buzzwords.
+Crucially, these 2 topics must establish high credibility. Use specific technical terminology appropriately, draw on real-world engineering challenges, and avoid superficial buzzwords.
 
 You must return ONLY valid JSON representing an array of objects. 
 Each object must have exactly two string fields:
@@ -311,7 +311,7 @@ app.post('/api/n8n/generate', async (req, res) => {
   if (targetWebhookUrl && typeof targetWebhookUrl === 'string' && targetWebhookUrl.startsWith('http')) {
     try {
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 25000);
+      const timeout = setTimeout(() => controller.abort(), 120000);
 
       const n8nResponse = await fetch(targetWebhookUrl, {
         method: 'POST',
@@ -319,8 +319,6 @@ app.post('/api/n8n/generate', async (req, res) => {
         body: JSON.stringify(outgoingPayload),
         signal: controller.signal,
       });
-
-      clearTimeout(timeout);
 
       if (n8nResponse.ok) {
         let json: any = null;
@@ -335,6 +333,7 @@ app.post('/api/n8n/generate', async (req, res) => {
             json = { content: rawText };
           }
         }
+        clearTimeout(timeout);
 
         const executionTimeMs = Date.now() - startTime;
 
@@ -536,9 +535,9 @@ async function getOrInitDailySchedules() {
     available = (data.linkedin_topics || []).filter((t: any) => !t.used);
   }
 
-  if (available.length >= 5) {
+  if (available.length >= 6) {
     const shuffled = available.sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, 5);
+    const selected = shuffled.slice(0, 6);
     const now = new Date();
     const endOfDay = new Date();
     endOfDay.setHours(23, 59, 59, 999);
@@ -555,7 +554,7 @@ async function getOrInitDailySchedules() {
     });
     
     fs.writeFileSync(SCHEDULE_FILE, JSON.stringify({ date: todayString, schedules }, null, 2));
-    console.log(`[Scheduler] 5 posts scheduled for today.`);
+    console.log(`[Scheduler] 6 posts scheduled for today.`);
   } else {
     console.log(`[Scheduler] Not enough unused topics available!`);
   }
@@ -578,7 +577,6 @@ function startSchedulerLoop() {
       if (!s.processed && Date.now() >= s.scheduledTime && !s.processing) {
         console.log(`[Scheduler] Executing scheduled post: ${s.topic}`);
         s.processing = true; // prevent re-entry
-        s.processed = true;
         updated = true;
         fs.writeFileSync(SCHEDULE_FILE, JSON.stringify({ date: todayString, schedules }, null, 2));
 
@@ -616,10 +614,14 @@ function startSchedulerLoop() {
                   // Replenish
                   await fetch(`http://127.0.0.1:${PORT}/api/topics/generate`, { method: 'POST' });
                   console.log(`[Scheduler] Successfully finished full pipeline for: ${s.topic}`);
+                  s.processed = true;
                 }
              }
            } catch(e) {
              console.error(`[Scheduler] Pipeline error for ${s.topic}:`, e);
+           } finally {
+             s.processing = false;
+             fs.writeFileSync(SCHEDULE_FILE, JSON.stringify({ date: todayString, schedules }, null, 2));
            }
         })();
       }

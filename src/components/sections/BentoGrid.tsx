@@ -19,20 +19,20 @@ export const BentoGrid: React.FC<BentoGridProps> = ({ currentArticle, history, o
       <div className="bg-grid/20 border border-grid/20 p-[1px] grid grid-cols-1 md:grid-cols-2 gap-[1px]">
         
         {/* Cell 1: Generated Content (Main Output) */}
-        <div className="bg-paper p-8 min-h-[400px]">
-          <div className="pl-3 border-l-2 border-mint mb-6">
+        <div className="bg-paper p-8 flex flex-col h-full">
+          <div className="pl-3 border-l-2 border-mint mb-6 flex-shrink-0">
             <h3 className="font-mono text-[12px] uppercase tracking-widest text-forest">
               Output_Buffer.txt
             </h3>
           </div>
           {currentArticle ? (
-            <div className="bg-white border border-grid/20 p-6 h-[calc(100%-3rem)] overflow-y-auto">
+            <div className="bg-white border border-grid/20 p-6">
               <div className="font-sans text-forest whitespace-pre-wrap leading-relaxed text-[15px]">
                 {currentArticle.content}
               </div>
             </div>
           ) : (
-            <div className="bg-grid/5 border border-grid/20 p-6 h-[calc(100%-3rem)] flex flex-col items-center justify-center text-center">
+            <div className="bg-grid/5 border border-grid/20 p-6 flex-1 flex flex-col items-center justify-center text-center min-h-[300px]">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-forest/30 mb-4">
                 <path d="M4 19h16M4 15h16M4 11h16M4 7h16" strokeWidth="2" strokeLinecap="square" />
               </svg>
@@ -46,15 +46,16 @@ export const BentoGrid: React.FC<BentoGridProps> = ({ currentArticle, history, o
 
 
         {/* Cell 3: History Archive */}
-        <div className="bg-paper p-8 min-h-[400px] h-full flex flex-col">
+        <div className="bg-paper p-8 flex flex-col h-full">
           <div className="pl-3 border-l-2 border-coral mb-6 flex-shrink-0">
             <h3 className="font-mono text-[12px] uppercase tracking-widest text-forest">
               Archive.log
             </h3>
           </div>
           
-          <div className="space-y-4 flex-1 overflow-y-auto pr-2">
-            {history.length > 0 ? history.map((item) => (
+          <div className="flex-1 relative min-h-0">
+            <div className="absolute inset-0 overflow-y-auto pr-2 space-y-4">
+              {history.length > 0 ? history.map((item) => (
               <div 
                 key={item.id} 
                 onClick={() => onSelectArticle(item)}
@@ -69,6 +70,7 @@ export const BentoGrid: React.FC<BentoGridProps> = ({ currentArticle, history, o
             )) : (
               <div className="font-mono text-[10px] text-forest/50">No archive records found.</div>
             )}
+            </div>
           </div>
         </div>
 
