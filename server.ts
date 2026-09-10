@@ -18,8 +18,8 @@ app.use(express.json({ limit: '10mb' }));
 
 
 // Configured default n8n webhook URLs
-const DEFAULT_GENERATE_WEBHOOK_URL = 'https://devamkumar.app.n8n.cloud/webhook/post-generator';
-const DEFAULT_PUBLISH_WEBHOOK_URL = 'https://devamkumar.app.n8n.cloud/webhook/post-to-linkedin';
+const DEFAULT_GENERATE_WEBHOOK_URL = 'https://shauryagupta.app.n8n.cloud/webhook/post-generator';
+const DEFAULT_PUBLISH_WEBHOOK_URL = 'https://shauryagupta.app.n8n.cloud/webhook/post-to-linkedin';
 
 // Fallback high-converting templates for solopreneurs
 function generateFallbackArticle(params: {
@@ -535,9 +535,9 @@ async function getOrInitDailySchedules() {
     available = (data.linkedin_topics || []).filter((t: any) => !t.used);
   }
 
-  if (available.length >= 6) {
+  if (available.length >= 10) {
     const shuffled = available.sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, 6);
+    const selected = shuffled.slice(0, 10);
     const now = new Date();
     const endOfDay = new Date();
     endOfDay.setHours(23, 59, 59, 999);
@@ -554,7 +554,7 @@ async function getOrInitDailySchedules() {
     });
     
     fs.writeFileSync(SCHEDULE_FILE, JSON.stringify({ date: todayString, schedules }, null, 2));
-    console.log(`[Scheduler] 6 posts scheduled for today.`);
+    console.log(`[Scheduler] 10 posts scheduled for today.`);
   } else {
     console.log(`[Scheduler] Not enough unused topics available!`);
   }

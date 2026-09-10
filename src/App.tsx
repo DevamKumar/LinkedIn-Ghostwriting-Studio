@@ -51,8 +51,8 @@ export default function App() {
 
   // n8n Settings State
   const [n8nSettings, setN8nSettings] = useState<N8nSettings>({
-    webhookUrl: 'https://devamkumar.app.n8n.cloud/webhook/post-generator',
-    publishWebhookUrl: 'https://devamkumar.app.n8n.cloud/webhook/post-to-linkedin',
+    webhookUrl: 'https://shauryagupta.app.n8n.cloud/webhook/post-generator',
+    publishWebhookUrl: 'https://shauryagupta.app.n8n.cloud/webhook/post-to-linkedin',
     simulateLatency: true,
     lastPingStatus: 'connected',
     lastPingLatencyMs: 38,
