@@ -21,70 +21,60 @@ app.use(express.json({ limit: '10mb' }));
 const DEFAULT_GENERATE_WEBHOOK_URL = 'https://shauryagupta.app.n8n.cloud/webhook/post-generator';
 const DEFAULT_PUBLISH_WEBHOOK_URL = 'https://shauryagupta.app.n8n.cloud/webhook/post-to-linkedin';
 
-// Fallback high-converting templates for solopreneurs
-function generateFallbackArticle(params: {
-  topic: string;
-  category: string;
-  writingStyle: string;
-  mentions: string[];
-}) {
-  const { topic, category, writingStyle, mentions } = params;
-  const mentionTags = mentions.length > 0 ? mentions.join(' ') : '@OpenAI @JustinWelsh';
-  
-  const headline = `The Solopreneur Blueprint: ${topic.replace(/\.$/, '')}`;
-  
-  const content = `Most founders think scaling requires a 10-person team and $500k in VC funding.
+async function handleGenerateFallback(topic: string, startTime: number, res: any) {
+  let fallbackData;
 
-They are completely wrong.
+  while (!fallbackData) {
+    if (process.env.GEMINI_API_KEY) {
+      try {
+        console.log(`[Fallback] Using Gemini to generate post for topic: ${topic}`);
+        const prompt = `Write a LinkedIn post about the following topic: ${topic}. 
+It should be highly engaging, professional, and targeted towards founders and engineers.
+Output ONLY a JSON object with the exact following fields:
+- headline (string)
+- content (string)
+- coreTakeaways (array of strings)
+- hashtags (array of strings)`;
 
-Here is the exact framework I used to validate "${topic}":
+        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
+        const response = await fetch(geminiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { response_mime_type: "application/json" }
+          })
+        });
 
-1. High-Leverage Systems Over Busywork
-• Eliminate 80% of repetitive admin with automated pipelines.
-• Stop manually formatting content when AI workflows can syndicate in seconds.
-• Focus solely on your core product and high-trust distribution.
+        if (response.ok) {
+          const result = await response.json();
+          const textResponse = result.candidates[0].content.parts[0].text;
+          try {
+            fallbackData = JSON.parse(textResponse);
+            if (!fallbackData.content) throw new Error("Missing content in Gemini response");
+            fallbackData.provider = 'Gemini API Fallback';
+            fallbackData.category = 'Learning Arc';
+            fallbackData.writingStyle = 'Reflective';
+            fallbackData.mentions = [];
+          } catch (e) {
+            console.error("Gemini returned invalid JSON. Retrying...");
+            fallbackData = null;
+          }
+        } else {
+          console.error(`Gemini API failed with status ${response.status}. Retrying...`);
+        }
+      } catch (err) {
+        console.error(`Gemini fallback failed:`, err, `. Retrying...`);
+      }
+    } else {
+      console.error("GEMINI_API_KEY not set. Cannot use Gemini. Retrying in 5 seconds...");
+    }
+    
+    if (!fallbackData) {
+      await new Promise(resolve => setTimeout(resolve, 5000));
+    }
+  }
 
-2. Audience-First Distribution
-When you build in public, your early supporters become your design partners.
-Tagging forward-thinking builders like ${mentionTags} taught me that speed of iteration beats perfection every single time.
-
-3. The Rule of 1 Focus
-• 1 Target ICP
-• 1 Clear Problem
-• 1 Scalable Offer
-• 1 Daily Distribution Channel
-
-The solopreneur revolution is not about working 16 hours a day. It is about building digital assets that compound while you sleep.
-
-What is the #1 operational bottleneck currently slowing down your solo journey?
-
-Drop a comment below and let's dissect it.
-
-#Solopreneur #BuildingInPublic #CreatorEconomy #IndieHacker #SaaS #Ghostwriting`;
-
-  const coreTakeaways = [
-    'Leverage automated workflows to run a 1-person company like an enterprise.',
-    'Build distribution loops before scaling your product features.',
-    'Focus on a single validated high-ticket offer before diversifying.',
-    'Engage with industry leaders and communities to compound network effects.'
-  ];
-
-  const hashtags = ['#Solopreneur', '#BuildingInPublic', '#CreatorEconomy', '#IndieHacker', '#SaaS', '#Ghostwriting'];
-
-  return {
-    headline,
-    content,
-    coreTakeaways,
-    hashtags,
-    mentions: mentions.length > 0 ? mentions : ['@OpenAI', '@JustinWelsh'],
-    category,
-    writingStyle,
-    provider: 'Pipeline Simulator' as const
-  };
-}
-
-function handleGenerateFallback(topic: string, startTime: number, res: any) {
-  const fallbackData = generateFallbackArticle({ topic, category: 'Learning Arc', writingStyle: 'Reflective', mentions: [] });
   const words = fallbackData.content.trim().split(/\s+/).filter(Boolean).length;
   
   const generatedArticle = {
@@ -443,7 +433,11 @@ app.post('/api/n8n/publish', async (req, res) => {
 
   const targetPublishUrl = publishWebhookUrl || DEFAULT_PUBLISH_WEBHOOK_URL;
 
-  if (targetPublishUrl && typeof targetPublishUrl === 'string' && targetPublishUrl.startsWith('http')) {
+  if (!targetPublishUrl || typeof targetPublishUrl !== 'string' || !targetPublishUrl.startsWith('http')) {
+      return res.status(400).json({ error: 'Valid publish URL is required' });
+  }
+
+  while (true) {
     try {
       const response = await fetch(targetPublishUrl, {
         method: 'POST',
@@ -456,7 +450,9 @@ app.post('/api/n8n/publish', async (req, res) => {
       });
 
       if (!response.ok) {
-        throw new Error(`n8n Publish Webhook returned HTTP ${response.status}`);
+        console.error(`n8n Publish Webhook returned HTTP ${response.status}. Retrying...`);
+        await new Promise(r => setTimeout(r, 3000));
+        continue;
       }
 
       let result: any = null;
@@ -478,21 +474,10 @@ app.post('/api/n8n/publish', async (req, res) => {
         response: result,
       });
     } catch (err: any) {
-      return res.status(502).json({
-        success: false,
-        error: `Publishing webhook failed: ${err.message}`,
-      });
+      console.error(`Publishing webhook failed: ${err.message}. Retrying...`);
+      await new Promise(r => setTimeout(r, 3000));
     }
   }
-
-  // Simulated direct LinkedIn publishing success
-  await new Promise((resolve) => setTimeout(resolve, 800));
-  return res.json({
-    success: true,
-    message: 'Post successfully scheduled and published to LinkedIn Feed!',
-    publishedAt: new Date().toISOString(),
-    postId: `urn:li:share:${Math.floor(1000000000000 + Math.random() * 9000000000000)}`,
-  });
 });
 
 // ---- BACKEND SCHEDULER SYSTEM ----
