@@ -30,6 +30,10 @@ async function handleGenerateFallback(topic: string, startTime: number, res: any
         console.log(`[Fallback] Using Gemini to generate post for topic: ${topic}`);
         const prompt = `Write a LinkedIn post about the following topic: ${topic}. 
 It should be highly engaging, professional, and targeted towards founders and engineers.
+CRITICAL INSTRUCTIONS for tone and formatting:
+- Do NOT use any special characters like asterisks (*), underscores (_), or emojis.
+- Do NOT use typical AI buzzwords or excessive exclamations.
+- Write conversationally, naturally, and straight to the point, exactly like a human expert would.
 Output ONLY a JSON object with the exact following fields:
 - headline (string)
 - content (string)
